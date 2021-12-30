@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: jingwei-registry
+  security:
+    user:
+      name: eureka
+      password: password
+
+server:
+  port: 8761
+
+#logging:
+#  level:
+#    com.netflix.eureka: 'off'
+#    com.netflix.discovery: 'off'
+
+eureka:
+  instance:
+    metadata-map:
+      user.name: admin
+      user.password: admin
+    preferIpAddress: true
+    health-check-url-path: /actuator/health
+    home-page-url-path: /actuator
+    status-page-url-path: /actuator/info
+  server:
+    enable-self-preservation: false #关闭自我保护机制
+    eviction-interval-timer-in-ms: 3000
+  client:
+    #是否将自己注册到eureka
+    registerWithEureka: false
+    #是否获取注册信息到本地
+    fetchRegistry: false
+    healthcheck:
+      enabled: true
+    instance:
+      lease-expiration-duration-in-seconds: 30 #减短服务心跳的时间
+      lease-renewal-interval-in-seconds: 3
+    service-url:
+      defaultZone: http://eureka:password@localhost:8761/eureka
+
