@@ -1,6 +1,7 @@
 package io.jingwei.registry;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
 import io.protostuff.ProtostuffIOUtil;
 import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
@@ -142,7 +143,9 @@ public class LoadData {
         int i = 0;
 
         for(iter.seekToFirst(); iter.isValid(); iter.next()) {
-//            System.out.println("iter key:" + new String(iter.key()) + ", iter value:" + new String(iter.value()));
+            System.out.println("iter key:" + new String(iter.key()) + ", iter value:" + new String(iter.value()));
+            String hex = HexBin.encode(iter.value());
+            System.out.println(new String(HexBin.decode(hex)));
 
             Libp2PPeer.signed_peer peer = Libp2PPeer.signed_peer.parseFrom(iter.value());
             System.out.println(peer);
