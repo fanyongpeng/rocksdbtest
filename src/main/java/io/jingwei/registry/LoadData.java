@@ -144,8 +144,7 @@ public class LoadData {
         for(iter.seekToFirst(); iter.isValid(); iter.next()) {
 //            System.out.println("iter key:" + new String(iter.key()) + ", iter value:" + new String(iter.value()));
 
-            Libp2PPeer.peer peer = Libp2PPeer.peer.parseFrom(iter.value());
-
+            Libp2PPeer.signed_peer peer = Libp2PPeer.signed_peer.parseFrom(iter.value());
             System.out.println(peer);
             i ++;
         }
