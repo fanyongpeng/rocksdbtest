@@ -8,6 +8,9 @@ import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import org.rocksdb.*;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -103,12 +106,38 @@ public class LoadData {
             System.out.println(new String(bytes));
             Libp2PPeer.signed_peer peer = Libp2PPeer.signed_peer.parseFrom(bytes);
 //            peer.getPeer().getPubkey()
+            byte[] pubkey = peer.getPeer().getPubkey().toByteArray();
+            byte[] checksum = getSHA(getSHA(pubkey));
+//            bytes[] res = new bytes[pubkey.length+checksum.length];
+            byte[] res = new byte[1+pubkey.length+4];
+            res[0]=0;
+//            res[2]=0;
+//            res[3]=0;
+            System.arraycopy(pubkey, 0, res, 1, pubkey.length);
+            System.arraycopy(checksum, 0, res, pubkey.length+1, 4);
+
+
             System.out.println(Base58Util.encode(peer.getPeer().getPubkey().toByteArray()));
+            System.out.println(Base58Util.encode(res));
+
+
             System.out.println(peer);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public static byte[] getSHA(byte[] input) throws NoSuchAlgorithmException
+    {
+        // Static getInstance method is called with hashing SHA
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+        // digest() method called
+        // to calculate message digest of an input
+        // and return array of byte
+        return md.digest(input);
+    }
+
 
     public static void main(String[] args) throws RocksDBException {
         LoadData test = new LoadData();
@@ -167,7 +196,14 @@ public class LoadData {
 //                System.out.println(new String(HexBin.decode(hex)));
 
                 Libp2PPeer.signed_peer peer = Libp2PPeer.signed_peer.parseFrom(iter.value());
-                System.out.println(Base58Util.encode(peer.getPeer().getPubkey().toByteArray()));
+
+                byte[] pubkey = peer.getPeer().getPubkey().toByteArray();
+                byte[] checksum = getSHA(getSHA(pubkey));
+                byte[] res = new byte[1+pubkey.length+4];
+                res[0]=0;
+                System.arraycopy(pubkey, 0, res, 1, pubkey.length);
+                System.arraycopy(checksum, 0, res, pubkey.length+1, 4);
+                System.out.println(Base58Util.encode(res));
                 System.out.println(peer);
             } catch (Exception e) {
                 e.printStackTrace();
