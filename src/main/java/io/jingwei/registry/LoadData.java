@@ -101,7 +101,9 @@ public class LoadData {
 
             byte[] bytes = HexBin.decode(hex);
             System.out.println(new String(bytes));
-            Libp2PPeer.peer peer = Libp2PPeer.peer.parseFrom(bytes);
+            Libp2PPeer.signed_peer peer = Libp2PPeer.signed_peer.parseFrom(bytes);
+//            peer.getPeer().getPubkey()
+            System.out.println(Base58Util.encode(peer.getPeer().getPubkey().toByteArray()));
             System.out.println(peer);
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,13 +161,14 @@ public class LoadData {
 
         for(iter.seekToFirst(); iter.isValid(); iter.next()) {
             try {
-                System.out.println("iter key:" + new String(iter.key()) + ", iter value:" + new String(iter.value()));
-                String hex = HexBin.encode(iter.value());
-                System.out.println("hex: "+hex);
-                System.out.println(new String(HexBin.decode(hex)));
+//                System.out.println("iter key:" + new String(iter.key()) + ", iter value:" + new String(iter.value()));
+//                String hex = HexBin.encode(iter.value());
+//                System.out.println("hex: "+hex);
+//                System.out.println(new String(HexBin.decode(hex)));
 
                 Libp2PPeer.signed_peer peer = Libp2PPeer.signed_peer.parseFrom(iter.value());
-                System.out.println(peer);
+                System.out.println(Base58Util.encode(peer.getPeer().getPubkey().toByteArray()));
+//                System.out.println(peer);
             } catch (Exception e) {
                 e.printStackTrace();
             }

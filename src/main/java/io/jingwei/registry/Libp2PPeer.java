@@ -4268,10 +4268,17 @@ public final class Libp2PPeer {
               break;
             }
             default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
+              try {
+                input.skipField(tag);
+              } catch (Exception e) {
+
               }
+
+//              done = true;
+//              if (!parseUnknownField(
+//                  input, unknownFields, extensionRegistry, tag)) {
+//                done = true;
+//              }
               break;
             }
           }
