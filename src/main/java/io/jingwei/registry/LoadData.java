@@ -168,7 +168,7 @@ public class LoadData {
 
                 Libp2PPeer.signed_peer peer = Libp2PPeer.signed_peer.parseFrom(iter.value());
                 System.out.println(Base58Util.encode(peer.getPeer().getPubkey().toByteArray()));
-//                System.out.println(peer);
+                System.out.println(peer);
             } catch (Exception e) {
                 e.printStackTrace();
             }
