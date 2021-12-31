@@ -27,7 +27,8 @@ public class LoadData {
     }
 
 //    private static final String  dbPath = "/opt/miner_data/blockchain_swarm/peerbook";
-    private static final String  dbPath = "/root/172.16.54.112.peerbook";
+//    private static final String  dbPath = "/root/172.16.54.112.peerbook";
+    private static final String  dbPath = "/root/172.16.55.129.peerbook";
 //    private static final String  dbPath = "/Users/fanyongpeng/hnt/data/rocksDB";
     RocksDB rocksDB;
 
