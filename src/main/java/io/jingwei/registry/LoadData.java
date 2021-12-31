@@ -1,13 +1,21 @@
 package io.jingwei.registry;
 
+import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
+import com.sun.tools.javac.util.ArrayUtils;
+import com.sun.tools.javac.util.StringUtils;
 import io.protostuff.ProtobufIOUtil;
 import io.protostuff.ProtostuffIOUtil;
 import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import org.rocksdb.*;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -26,11 +34,11 @@ public class LoadData {
 //        RocksDB.loadLibrary();
     }
 
-//    private static final String  dbPath = "/opt/miner_data/blockchain_swarm/peerbook";
+    private static final String  dbPath = "/opt/miner_data/blockchain_swarm/peerbook";
 //    private static final String  dbPath = "/root/172.16.54.112.peerbook";
 //    private static final String  dbPath = "/root/172.16.55.129.peerbook";
 //    private static final String  dbPath = "/root/172.16.10.226.peerbook";
-    private static final String  dbPath = "/root/172.16.46.120.peerbook";
+//    private static final String  dbPath = "/root/172.16.46.120.peerbook";
 //    private static final String  dbPath = "/Users/fanyongpeng/hnt/data/rocksDB";
     RocksDB rocksDB;
 
@@ -135,12 +143,33 @@ public class LoadData {
 
             System.out.println(Base58Util.encode(peer.getPeer().getPubkey().toByteArray()));
             System.out.println(Base58Util.encode(res));
+            System.out.println(binToAddress(peer.getPeer().getListenAddrsList().get(0).toByteArray()));
 
 
             System.out.println(peer);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String binToAddress(byte[] input) {
+
+        if (input[0] == 0x04) {
+            String addr = bytesToIp(input)+":"+bytesToPort(input);
+
+//            System.out.println(addr);
+            return addr;
+        }
+
+        return "";
+    }
+    public static String bytesToIp(byte[] src) {
+        return (src[1] & 0xff) + "." + (src[2] & 0xff) + "." + (src[3] & 0xff)
+                + "." + (src[4] & 0xff);
+    }
+
+    public static int bytesToPort(byte[] src) {
+        return ((0xFF & src[6]) << 8) | (0xFF & src[7]);
     }
 
     public static byte[] getSHA(byte[] input) throws NoSuchAlgorithmException
@@ -223,7 +252,12 @@ public class LoadData {
                 System.arraycopy(pubkey, 0, res, 1, pubkey.length);
                 System.arraycopy(checksum, 0, res, pubkey.length+1, 4);
                 System.out.println(Base58Util.encode(res));
-//                System.out.println(peer);
+                for (ByteString bs: peer.getPeer().getListenAddrsList()) {
+                    String addr = binToAddress(bs.toByteArray());
+                    System.out.println(addr);
+                }
+
+                System.out.println(peer);
             } catch (Exception e) {
 //                e.printStackTrace();
             }
