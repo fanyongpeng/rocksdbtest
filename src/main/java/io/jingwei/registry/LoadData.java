@@ -245,7 +245,7 @@ public class LoadData {
                     mulAddr +=addr+",";
 //                    System.out.println(addr);
                 }
-                line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp();
+                line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp()+"\t"+peer.getPeer().getConnectedList().size();
                 System.out.println(line);
             } catch (Exception e) {
 //                e.printStackTrace();
