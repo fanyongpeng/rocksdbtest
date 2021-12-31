@@ -54,7 +54,7 @@ public class Base58Util {
     }
 
     //Base58解码
-    private static byte[] decode(String input) {
+    public static byte[] decode(String input) {
         if (input.length() == 0) {
             return new byte[0];
         }
