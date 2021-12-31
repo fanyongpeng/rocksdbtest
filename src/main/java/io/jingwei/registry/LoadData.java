@@ -244,7 +244,7 @@ public class LoadData {
                     mulAddr +=addr+",";
 //                    System.out.println(addr);
                 }
-                line+=mulAddr;
+                line+="\t"+mulAddr;
                 System.out.println(line);
             } catch (Exception e) {
 //                e.printStackTrace();
