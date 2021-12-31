@@ -154,7 +154,7 @@ public class LoadData {
     public static void main(String[] args) throws RocksDBException {
         LoadData test = new LoadData();
        //test.testDefaultColumnFamily();
-        testProto();
+//        testProto();
         try {
             test.testCertainColumnFamily2();
         } catch (IllegalAccessException e) {
