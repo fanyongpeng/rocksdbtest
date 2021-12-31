@@ -218,8 +218,8 @@ public class LoadData {
                 res[0]=0;
                 System.arraycopy(pubkey, 0, res, 1, pubkey.length);
                 System.arraycopy(checksum, 0, res, pubkey.length+1, 4);
-//                System.out.println(Base58Util.encode(res));
-                System.out.println(peer);
+                System.out.println(Base58Util.encode(res));
+//                System.out.println(peer);
             } catch (Exception e) {
 //                e.printStackTrace();
             }
