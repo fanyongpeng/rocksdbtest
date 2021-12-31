@@ -144,9 +144,10 @@ public class LoadData {
 
 //            System.out.println(addr);
             return addr;
+        } else {
+            return HexBin.encode(input);
         }
 
-        return "";
     }
     public static String bytesToIp(byte[] src) {
         return (src[1] & 0xff) + "." + (src[2] & 0xff) + "." + (src[3] & 0xff)
@@ -172,7 +173,7 @@ public class LoadData {
     public static void main(String[] args) throws RocksDBException {
         LoadData test = new LoadData();
        //test.testDefaultColumnFamily();
-//        testProto();
+        testProto();
         try {
             test.testCertainColumnFamily2();
         } catch (IllegalAccessException e) {
@@ -244,7 +245,7 @@ public class LoadData {
                     mulAddr +=addr+",";
 //                    System.out.println(addr);
                 }
-                line+="\t"+mulAddr;
+                line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp();
                 System.out.println(line);
             } catch (Exception e) {
 //                e.printStackTrace();
