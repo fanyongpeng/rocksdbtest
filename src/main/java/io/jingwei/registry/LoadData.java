@@ -137,6 +137,12 @@ public class LoadData {
         }
     }
 
+    public static void testListenAddr(){
+        String hex = "A4032600007C00F0888762290A4A8429BDC681E51F8F1DB64B6FCD029561881D0EF3A452F20DBF051AA202387032702F313132534832624153775975636A454C7474645956655152615573787168434E6E707178614768717163517A6939463739505858";
+        byte[] bytes = HexBin.decode(hex);
+        System.out.println(new String(bytes));
+    }
+
     public static String binToAddress(byte[] input) {
 
         if (input[0] == 0x04) {
@@ -173,7 +179,8 @@ public class LoadData {
     public static void main(String[] args) throws RocksDBException {
         LoadData test = new LoadData();
        //test.testDefaultColumnFamily();
-        testProto();
+//        testProto();
+//        testListenAddr();
         try {
             test.testCertainColumnFamily2();
         } catch (IllegalAccessException e) {
@@ -245,7 +252,7 @@ public class LoadData {
                     mulAddr +=addr+",";
 //                    System.out.println(addr);
                 }
-                line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp()+"\t"+peer.getPeer().getConnectedList().size();
+                line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp()+"\t"+peer.getPeer().getConnectedList().size()+"\t"+peer.getPeer().getNatTypeValue();
                 System.out.println(line);
             } catch (Exception e) {
 //                e.printStackTrace();
