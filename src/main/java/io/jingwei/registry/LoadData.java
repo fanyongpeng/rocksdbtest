@@ -254,7 +254,7 @@ public class LoadData {
                     mulAddr +=addr+",";
 //                    System.out.println(addr);
                 }
-                line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp()+"\t"+peer.getPeer().getConnectedList().size()+"\t"+peer.getPeer().getNatTypeValue();
+                line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp()+"\t"+peer.getPeer().getConnectedList().size()+"\t"+peer.getPeer().getNatTypeValue()+"\t"+peer.getPeer().getAssociationsMap().get("release_info").toString();
                 System.out.println(line);
             } catch (Exception e) {
 //                e.printStackTrace();
