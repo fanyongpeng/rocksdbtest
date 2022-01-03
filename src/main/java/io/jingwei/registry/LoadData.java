@@ -236,7 +236,7 @@ public class LoadData {
 //                System.out.println(new String(HexBin.decode(hex)));
 
                 Libp2PPeer.signed_peer peer = Libp2PPeer.signed_peer.parseFrom(iter.value());
-
+                System.out.println(peer);
                 byte[] pubkey = peer.getPeer().getPubkey().toByteArray();
                 byte[] vPayload = new byte[pubkey.length+1];
                 vPayload[0]=0;
@@ -256,6 +256,7 @@ public class LoadData {
                 }
                 line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp()+"\t"+peer.getPeer().getConnectedList().size()+"\t"+peer.getPeer().getNatTypeValue()+"\t"+peer.getPeer().getAssociationsMap().get("release_info").toString();
                 System.out.println(line);
+
             } catch (Exception e) {
 //                e.printStackTrace();
             }
