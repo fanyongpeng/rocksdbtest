@@ -254,7 +254,14 @@ public class LoadData {
                     mulAddr +=addr+",";
 //                    System.out.println(addr);
                 }
-                line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp()+"\t"+peer.getPeer().getConnectedList().size()+"\t"+peer.getPeer().getNatTypeValue()+"\t"+peer.getPeer().getSignedMetadataMap().get("release_info").toString();
+
+                String metadata = "";
+                for (String k: peer.getPeer().getSignedMetadataMap().keySet()) {
+
+                    metadata +=peer.getPeer().getSignedMetadataMap().get(k).toString()+",";
+//                    System.out.println(addr);
+                }
+                line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp()+"\t"+peer.getPeer().getConnectedList().size()+"\t"+peer.getPeer().getNatTypeValue()+"\t"+metadata;
                 System.out.println(line);
 
             } catch (Exception e) {
