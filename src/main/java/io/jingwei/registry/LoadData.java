@@ -258,7 +258,7 @@ public class LoadData {
                 String metadata = "";
                 for (String k: peer.getPeer().getSignedMetadataMap().keySet()) {
 
-                    metadata +=peer.getPeer().getSignedMetadataMap().get(k).toString()+",";
+                    metadata += k+":"+peer.getPeer().getSignedMetadataMap().get(k).toString()+",";
 //                    System.out.println(addr);
                 }
                 line+="\t"+mulAddr+"\t"+peer.getPeer().getTimestamp()+"\t"+peer.getPeer().getConnectedList().size()+"\t"+peer.getPeer().getNatTypeValue()+"\t"+metadata;
